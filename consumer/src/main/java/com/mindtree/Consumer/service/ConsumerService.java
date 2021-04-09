@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.mindtree.Consumer.model.Consumer;
+import com.mindtree.Consumer.entity.Consumer;
 
 @Service
 public interface ConsumerService {

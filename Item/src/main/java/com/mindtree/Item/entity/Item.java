@@ -1,4 +1,4 @@
-package com.mindtree.Item.model;
+package com.mindtree.Item.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,14 +13,16 @@ public class Item {
 	private int id;
 	private String name;
 	private String itemType;
-	private float price;
+	private float price_per_quantity;
+	private short quantity;
 
-	public Item(int id, String name, String itemType, float price) {
+	public Item(int id, String name, String itemType, float price_per_quantity, short quantity) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.itemType = itemType;
-		this.price = price;
+		this.price_per_quantity = price_per_quantity;
+		this.quantity = quantity;
 	}
 
 	public Item() {
@@ -44,20 +46,28 @@ public class Item {
 		this.id = id;
 	}
 
-	public float getPrice() {
-		return price;
-	}
-
-	public void setPrice(float price) {
-		this.price = price;
-	}
-
 	public String getItemType() {
 		return itemType;
 	}
 
 	public void setItemType(String itemType) {
 		this.itemType = itemType;
+	}
+
+	public float getPrice_per_quantity() {
+		return price_per_quantity;
+	}
+
+	public void setPrice_per_quantity(float price_per_quantity) {
+		this.price_per_quantity = price_per_quantity;
+	}
+
+	public short getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(short quantity) {
+		this.quantity = quantity;
 	}
 
 }

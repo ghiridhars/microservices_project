@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mindtree.producer.model.Producer;
+import com.mindtree.producer.entity.Producer;
+import com.mindtree.producer.feignClients.ItemClient;
+import com.mindtree.producer.model.Product;
 import com.mindtree.producer.repositorydao.ProducerRepo;
 import com.mindtree.producer.service.ProducerService;
 
@@ -33,16 +35,24 @@ public class ProducerController {
 
 	@Autowired
 	ProducerService producerService;
+	
+	@Autowired
+	ItemClient itemFeign;
 
-	@GetMapping("/hello")
-	public String sayHello() {
-		producerService.clear();
-		return "Hello Hello";
-	}
+//	@GetMapping("/hello")
+//	public String sayHello() {
+//		producerService.clear();
+//		return "Hello Hello";
+//	}
 
 	@GetMapping("/getProducerBy/{name}")
 	public Producer getProducerBy(@PathVariable String name) {
 		return producerService.getByName(name);
+	}
+	
+	@GetMapping("/getItemsBy/{name}")
+	public Product getItemsBy(@PathVariable String name) {
+		return itemFeign.getItemBy(name);
 	}
 
 	@GetMapping("/getProducer/{id}")

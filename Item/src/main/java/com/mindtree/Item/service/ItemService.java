@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.mindtree.Item.model.Item;
+import com.mindtree.Item.entity.Item;
 
 @Service
 public interface ItemService {
@@ -16,5 +16,9 @@ public interface ItemService {
 	void clear();
 
 	List<Item> getByType(String prod);
+
+	boolean deleteById(int id);
+
+	Item updateItem(Item p, int id);
 
 }

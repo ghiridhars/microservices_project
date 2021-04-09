@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import com.mindtree.Consumer.model.Consumer;
+import com.mindtree.Consumer.entity.Consumer;
 import com.mindtree.Consumer.repositorydao.ConsumerRepo;
 
 @Service

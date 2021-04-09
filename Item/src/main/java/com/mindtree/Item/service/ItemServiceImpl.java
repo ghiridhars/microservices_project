@@ -9,7 +9,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import com.mindtree.Item.model.Item;
+import com.mindtree.Item.entity.Item;
 import com.mindtree.Item.repositorydao.ItemRepo;
 
 @Service
@@ -39,5 +39,22 @@ public class ItemServiceImpl implements ItemService{
 	@Override
 	public List<Item> getByType(String prod) {
 		return itemRepo.getByType(prod);
+	}
+
+	@Override
+	public boolean deleteById(int id) {
+		itemRepo.deleteById(id);
+		return true;
+	}
+
+	@Override
+	public Item updateItem(Item p, int id) {
+		Item res =itemRepo.findById(id).orElse(null);
+		if(res!=null) {
+			res.setName(p.getName());
+			itemRepo.save(res);
+			return res;
+		}
+		return null;
 	}
 }

@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import com.mindtree.producer.model.Producer;
+import com.mindtree.producer.entity.Producer;
 import com.mindtree.producer.repositorydao.ProducerRepo;
 
 @Service

@@ -1,8 +1,6 @@
-package com.mindtree.Item.model;
+package com.mindtree.producer.model;
 
 import java.util.List;
-
-import com.mindtree.Item.entity.Item;
 
 public class Product {
 

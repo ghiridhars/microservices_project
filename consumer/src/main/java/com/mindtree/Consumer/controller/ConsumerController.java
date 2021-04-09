@@ -20,9 +20,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.mindtree.Consumer.VO.Producer;
 import com.mindtree.Consumer.VO.Product;
+import com.mindtree.Consumer.entity.Consumer;
 import com.mindtree.Consumer.feignClients.ItemClient;
 import com.mindtree.Consumer.feignClients.ProducerClient;
-import com.mindtree.Consumer.model.Consumer;
 import com.mindtree.Consumer.repositorydao.ConsumerRepo;
 import com.mindtree.Consumer.service.ConsumerService;
 
@@ -44,11 +44,11 @@ public class ConsumerController {
 	@Autowired
 	ItemClient itemClient;
 
-	@GetMapping("/hello")
-	public String sayHello() {
-		consumerService.clear();
-		return "Hello Hello";
-	}
+//	@GetMapping("/hello")
+//	public String sayHello() {
+//		consumerService.clear();
+//		return "Hello Hello";
+//	}
 
 	@GetMapping("/getProducerBy/{name}")
 	public Producer getProducerByName(@PathVariable String name) {
@@ -85,10 +85,4 @@ public class ConsumerController {
 	public Consumer updateConsumer(@RequestBody Consumer p, @PathVariable int id) throws InterruptedException {
 		return consumerService.updateConsumer(p, id);
 	}
-
-	@Bean
-	public RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
-
 }

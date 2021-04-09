@@ -1,4 +1,4 @@
-package com.mindtree.producer.model;
+package com.mindtree.producer.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
