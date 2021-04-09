@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 /*
- http://localhost:8989/mentorportal/skillTechService/skillstech/hello
+ http://localhost:8989/mentorportal/*s
  */
 @EnableDiscoveryClient
 @EnableZuulProxy
