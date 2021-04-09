@@ -42,22 +42,16 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public boolean deleteByName(String name) {
-		Item res =itemRepo.findByName(name);
-		System.out.println(res);
-		itemRepo.delete(res);
+	public boolean deleteById(int id) {
+		itemRepo.deleteById(id);
 		return true;
 	}
 
 	@Override
-	public Item updateItem(Item p, String name) {
-		Item res =itemRepo.findByName(name);
-		System.out.println(res);
+	public Item updateItem(Item p, int id) {
+		Item res =itemRepo.findById(id).orElse(null);
 		if(res!=null) {
 			res.setName(p.getName());
-			res.setItemType(p.getItemType());
-			res.setPrice_per_quantity(p.getPrice_per_quantity());
-			res.setQuantity(p.getQuantity());
 			itemRepo.save(res);
 			return res;
 		}

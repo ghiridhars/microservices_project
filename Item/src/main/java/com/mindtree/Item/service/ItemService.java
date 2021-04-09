@@ -17,8 +17,8 @@ public interface ItemService {
 
 	List<Item> getByType(String prod);
 
-	boolean deleteById(int id);
+	boolean deleteByName(String name);
 
-	Item updateItem(Item p, int id);
+	Item updateItem(Item p, String name);
 
 }

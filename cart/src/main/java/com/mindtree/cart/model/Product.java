@@ -1,4 +1,4 @@
-package com.mindtree.Item.model;
+package com.mindtree.cart.model;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class Product {
 		this.brandName = brandName;
 		this.items = items;
 	}
-	
+
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
