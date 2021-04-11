@@ -1,4 +1,4 @@
-package com.mindtree.Consumer.VO;
+package com.mindtree.Consumer.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -9,7 +9,7 @@ import com.mindtree.Item.entity.Item;
 @Service
 public interface ItemService {
 
-	List<Item> getAllData() throws InterruptedException;
+	List<Item> getAllData();
 
 	Item addItem(Item p);
 		
@@ -21,4 +21,9 @@ public interface ItemService {
 
 	Item updateItem(Item p, String name);
 
+	Item getById(int id);
+
+	Item getItemByName(String name);
+
+	List<Item> getAllItemsById(List<Integer> ids);
 }

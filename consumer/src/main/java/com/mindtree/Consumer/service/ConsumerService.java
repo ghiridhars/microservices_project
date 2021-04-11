@@ -17,6 +17,4 @@ public interface ConsumerService {
 
 	Consumer updateConsumer(Consumer p, int id) throws InterruptedException;
 	
-	void clear();
-
 }

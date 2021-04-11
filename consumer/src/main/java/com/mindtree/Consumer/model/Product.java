@@ -1,4 +1,4 @@
-package com.mindtree.Consumer.VO;
+package com.mindtree.Consumer.model;
 
 import java.util.List;
 

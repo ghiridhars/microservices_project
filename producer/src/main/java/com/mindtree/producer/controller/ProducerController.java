@@ -37,21 +37,15 @@ public class ProducerController {
 
 	@Autowired
 	ProducerService producerService;
-	
+
 	@Autowired
 	ItemClient itemFeign;
-
-//	@GetMapping("/hello")
-//	public String sayHello() {
-//		producerService.clear();
-//		return "Hello Hello";
-//	}
 
 	@GetMapping("/getProducerBy/{name}")
 	public Producer getProducerBy(@PathVariable String name) {
 		return producerService.getByName(name);
 	}
-	
+
 	@GetMapping("/getItems")
 	public Product getItemsBy() {
 		return itemFeign.getItems();
@@ -61,33 +55,37 @@ public class ProducerController {
 	public Producer getProducerBy(@PathVariable int id) {
 		return producerService.getById(id);
 	}
-	
+
 	@PostMapping(value = "/addItem")
 	public Item addItem(@RequestBody Item it) {
 		return itemFeign.addItem(it);
 	}
-	
-	@RequestMapping(method = RequestMethod.PUT,value="/updateItem/{name}")
-	public Item updateItem(@RequestBody Item id,@PathVariable String name) {
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/updateItem/{name}")
+	public Item updateItem(@RequestBody Item id, @PathVariable String name) {
 		return itemFeign.updateItem(id, name);
 	}
-	
+
 	@DeleteMapping(value = "/deleteItem/{name}")
 	public boolean deleteItem(@PathVariable String name) {
 		return itemFeign.deleteItem(name);
 	}
 
+	@PostMapping("/addProducer")
+	public Producer addProducer(@RequestBody Producer p) {
+		return producerService.addProducer(p);
+	}
 
 //	@GetMapping("/getProducers")
 //	public List<Producer> getSkill() throws InterruptedException {
 //		return producerService.getAllData();
 //	}
 
-	@PostMapping("/addProducer")
-	public Producer addProducer(@RequestBody Producer p) {
-		producerService.clear();
-		return producerService.addProducer(p);
-	}
+//	@GetMapping("/hello")
+//	public String sayHello() {
+//		producerService.clear();
+//		return "Hello Hello";
+//	}
 
 //	@DeleteMapping("/deleteProducer/{id}")
 //	public boolean delteProducer(@PathVariable int id) {

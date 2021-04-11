@@ -18,16 +18,14 @@ public class ConsumerServiceImpl implements ConsumerService{
 	ConsumerRepo consumerRepo;
 
 	@Override
-	@Cacheable(value="Consumers")
 	public List<Consumer> getAllData() throws InterruptedException {
-		Thread.sleep(900);
 		return consumerRepo.findAll();
 	}
 	
-	@CacheEvict(value = "Consumers", allEntries = true)
-	@Override
-	public void clear() {
-	}
+//	@CacheEvict(value = "Consumers", allEntries = true)
+//	@Override
+//	public void clear() {
+//	}
 
 	@Override
 	public Consumer addConsumer(Consumer p) {
@@ -45,7 +43,6 @@ public class ConsumerServiceImpl implements ConsumerService{
 	@Override
 	@CachePut(value = "Consumer")
 	public Consumer updateConsumer(Consumer p,int id) throws InterruptedException {
-		Thread.sleep(900);
 		Consumer res =consumerRepo.findById(id).orElse(null);
 		if(res!=null) {
 			res.setName(p.getName());

@@ -1,22 +1,23 @@
 package com.mindtree.cart.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.mindtree.cart.entity.Cart;
+import com.mindtree.cart.model.Item;
 
 @Service
-public interface ItemService {
+public interface CartService {
 
-	List<Cart> getAllData() throws InterruptedException;
+	public Cart getCartData(int id);
 
-	Cart addItem(Item p);
+	public Cart addItem(Item p,int id);
 		
-	void clear();
+	public boolean deleteCartById(int id);
+	
+	public boolean deleteItemById(Item p,int id);
 
-	boolean deleteById(int id);
+	public Cart addCart(int cust_id);
 
-//	Item updateItem(Item p, int id);
+//	public Cart updateItem(Item p, int id);
 
 }

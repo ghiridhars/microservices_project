@@ -2,7 +2,6 @@ package com.mindtree.cart.model;
 
 import java.util.List;
 
-import com.mindtree.Item.entity.Item;
 
 public class Product {
 

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.mindtree.Consumer.VO.Producer;
+import com.mindtree.Consumer.model.Producer;
 
 @Service
 @FeignClient(name = "producerService",

@@ -1,7 +1,7 @@
 #Name of the application
 spring:
   application:
-    name: itemService
+    name: cartService
 
 #Eureka server url for registering
 #This is eureka client
@@ -17,4 +17,4 @@ instance:
   hostname: localhost
 
 server:
-  port: 8932
+  port: 8934

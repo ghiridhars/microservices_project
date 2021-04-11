@@ -1,4 +1,4 @@
-package com.mindtree.cart.entity;
+package com.mindtree.Consumer.model;
 
 import java.util.List;
 
@@ -11,27 +11,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-public class Cart {
+public class CartItems {
 
-	@Id
 	private int id;
-
-	@ElementCollection
-	@CollectionTable(name = "item_id", joinColumns = @JoinColumn(name = "cart_id"))
-	@Column(name = "item_id")
-	private List<Integer> item_id;
+	private List<Item> items;
 
 	private float total;
 
-	public Cart(int id, int cust_id, List<Integer> item_id, float total) {
+	public CartItems(int id, List<Item> items, float total) {
 		super();
 		this.id = id;
-		this.setItem_id(item_id);
+		this.items = items;
 		this.total = total;
 	}
 
-	public Cart() {
+	public CartItems() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -52,12 +46,12 @@ public class Cart {
 		this.total = total;
 	}
 
-	public List<Integer> getItem_id() {
-		return item_id;
+	public List<Item> getItems() {
+		return items;
 	}
 
-	public void setItem_id(List<Integer> item_id) {
-		this.item_id = item_id;
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 
 }

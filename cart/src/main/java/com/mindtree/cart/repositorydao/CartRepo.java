@@ -10,6 +10,9 @@ import com.mindtree.cart.entity.Cart;
 
 public interface CartRepo extends JpaRepository<Cart, Integer>{
 	
-	@Query("Select i from Item i where i.itemType=?1")
-	public List<Cart> getByType(String type);
+//	@Query("Select i from Item i where i.itemType=?1")
+//	public List<Cart> getByType(String type);
+	
+	@Query("Select c from Cart c where c.id=?1")
+	public Cart findByCartId(int id);
 }

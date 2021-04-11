@@ -1,4 +1,4 @@
-package com.mindtree.cart.entity;
+package com.mindtree.Consumer.model;
 
 import java.util.List;
 
@@ -11,20 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
 public class Cart {
 
-	@Id
 	private int id;
-
-	@ElementCollection
-	@CollectionTable(name = "item_id", joinColumns = @JoinColumn(name = "cart_id"))
-	@Column(name = "item_id")
 	private List<Integer> item_id;
 
 	private float total;
 
-	public Cart(int id, int cust_id, List<Integer> item_id, float total) {
+	public Cart(int id, List<Integer> item_id, float total) {
 		super();
 		this.id = id;
 		this.setItem_id(item_id);

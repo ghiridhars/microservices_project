@@ -36,37 +36,45 @@ public class ItemController {
 	@Autowired
 	ItemService itemService;
 
+	@GetMapping("/getItemById/{id}")
+	public Item getItemById(@PathVariable int id) {
+		return itemService.getById(id);
+	}
+
+	@GetMapping("/getItems/{prod}")
+	public List<Item> getItemsByProd(@PathVariable String prod) {
+		return itemService.getByType(prod);
+	}
+	
+	@GetMapping("/getItemByName/{name}")
+	public Item getItemsByName(@PathVariable String name) {
+		return itemService.getItemByName(name);
+	}
+	
+	@GetMapping("/getAllItems")
+	public List<Item> getAllItems() {
+		return itemService.getAllData();
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/addItem")
+	public Item addItem(@RequestBody Item c) {
+		return itemService.addItem(c);
+	}
+
+	@DeleteMapping("/deleteItem/{name}")
+	public boolean delteProducer(@PathVariable String name) {
+		return itemService.deleteByName(name);
+	}
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/updateItem/{name}")
+	public Item updateItem(@RequestBody Item p, @PathVariable String name) throws InterruptedException {
+		return itemService.updateItem(p, name);
+	}
+
 //	@GetMapping("/hello")
 //	public String sayHello() {
 //		itemService.clear();
 //		return "Hello Hello";
 //	}
 
-	@GetMapping("/getItems/{prod}")
-	public Product getItemsByProd(@PathVariable String prod) {
-		Product p = new Product(prod, itemService.getByType(prod));
-		return p;
-	}
-
-	@GetMapping("/getAllItems")
-	public Product getSkill() throws InterruptedException {
-		return new Product("All items",itemService.getAllData());
-	}
-
-	@RequestMapping(method = RequestMethod.POST,value="/addItem")
-	public Item addItem(@RequestBody Item c) {
-		return itemService.addItem(c);
-	}
-	
-	@DeleteMapping("/deleteItem/{name}")
-	public boolean delteProducer(@PathVariable String name) {
-		return itemService.deleteByName(name);
-	}
-
-	@RequestMapping(method = RequestMethod.PUT,value="/updateItem/{name}")
-	public Item updateItem(@RequestBody Item p, @PathVariable String name) throws InterruptedException {
-		return itemService.updateItem(p, name);
-	}
-
-	
 }

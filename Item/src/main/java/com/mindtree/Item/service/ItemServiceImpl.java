@@ -21,8 +21,7 @@ public class ItemServiceImpl implements ItemService{
 
 	@Override
 	@Cacheable
-	public List<Item> getAllData() throws InterruptedException {
-		Thread.sleep(900);
+	public List<Item> getAllData() {
 		return itemRepo.findAll();
 	}
 	
@@ -43,7 +42,7 @@ public class ItemServiceImpl implements ItemService{
 
 	@Override
 	public boolean deleteByName(String name) {
-		Item res =itemRepo.findByName(name);
+		Item res =itemRepo.findByName(name).orElse(null);
 		System.out.println(res);
 		itemRepo.delete(res);
 		return true;
@@ -51,16 +50,32 @@ public class ItemServiceImpl implements ItemService{
 
 	@Override
 	public Item updateItem(Item p, String name) {
-		Item res =itemRepo.findByName(name);
+		Item res =itemRepo.findByName(name).orElse(null);
 		System.out.println(res);
 		if(res!=null) {
 			res.setName(p.getName());
 			res.setItemType(p.getItemType());
 			res.setPrice_per_quantity(p.getPrice_per_quantity());
-			res.setQuantity(p.getQuantity());
 			itemRepo.save(res);
 			return res;
 		}
 		return null;
+	}
+
+	@Override
+	public Item getById(int id) {
+		return itemRepo.findById(id).orElse(null);
+	}
+
+	@Override
+	public Item getItemByName(String name) {
+		// TODO Auto-generated method stub
+		return itemRepo.findByName(name).orElse(null);
+	}
+
+	@Override
+	public List<Item> getAllItemsById(List<Integer> ids) {
+		// TODO Auto-generated method stub
+		return itemRepo.findAllById(ids);
 	}
 }

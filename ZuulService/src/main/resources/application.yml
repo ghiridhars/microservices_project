@@ -20,6 +20,7 @@ server:
   port: 8989
   
 zuul:
+#  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
   prefix: /onlineStore
   routes:
 #    userAccessService:
@@ -34,9 +35,9 @@ zuul:
     itemService:
       path: /itemService/**
       service-id: ITEMSERVICE
-#    paymentsService:
-#      path: /paymentService/**
-#      service-id: PAYMENTSSERVICE
-     
-     
+    cartService:
+      path: /cartService/**
+      service-id: CARTSERVICE
+
+      
       
