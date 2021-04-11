@@ -10,6 +10,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.mindtree.Item.entity.Item;
+import com.mindtree.Item.exception.ItemMicroserviceException;
+import com.mindtree.Item.exception.ItemServiceException;
 import com.mindtree.Item.repositorydao.ItemRepo;
 
 @Service
@@ -36,21 +38,25 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public List<Item> getByType(String prod) {
-		return itemRepo.getByType(prod);
+	public List<Item> getByType(String prod) throws ItemServiceException {
+		List<Item> items= itemRepo.getByType(prod);
+		if(items.size() ==0) {
+			throw new ItemServiceException("No items found");
+		}
+		else return items;
 	}
 
 	@Override
-	public boolean deleteByName(String name) {
-		Item res =itemRepo.findByName(name).orElse(null);
+	public boolean deleteByName(String name) throws ItemServiceException {
+		Item res =itemRepo.findByName(name).orElseThrow(() -> new ItemServiceException("Item Not Found"));
 		System.out.println(res);
 		itemRepo.delete(res);
 		return true;
 	}
 
 	@Override
-	public Item updateItem(Item p, String name) {
-		Item res =itemRepo.findByName(name).orElse(null);
+	public Item updateItem(Item p, String name) throws ItemServiceException {
+		Item res =itemRepo.findByName(name).orElseThrow(() -> new ItemServiceException("Item Not Found"));
 		System.out.println(res);
 		if(res!=null) {
 			res.setName(p.getName());
@@ -63,19 +69,19 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public Item getById(int id) {
-		return itemRepo.findById(id).orElse(null);
+	public Item getById(int id) throws ItemServiceException {
+		return itemRepo.findById(id).orElseThrow(() -> new ItemServiceException("Item Not Found"));
 	}
 
 	@Override
-	public Item getItemByName(String name) {
+	public Item getItemByName(String name) throws ItemServiceException {
 		// TODO Auto-generated method stub
-		return itemRepo.findByName(name).orElse(null);
+		return itemRepo.findByName(name).orElseThrow(() -> new ItemServiceException("Item Not Found"));
 	}
 
 	@Override
 	public List<Item> getAllItemsById(List<Integer> ids) {
 		// TODO Auto-generated method stub
-		return itemRepo.findAllById(ids);
+		return null;
 	}
 }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mindtree.Consumer.entity.Consumer;
 import com.mindtree.Consumer.exception.ConsumerMicroserviceException;
+import com.mindtree.Consumer.exception.ConsumerServiceException;
 import com.mindtree.Consumer.feignClients.CartClient;
 import com.mindtree.Consumer.feignClients.ItemClient;
 import com.mindtree.Consumer.feignClients.ProducerClient;
@@ -78,7 +79,7 @@ public class ConsumerController {
 	
 	@GetMapping(value = "/getCart/{id}")
 	public ResponseEntity<CartItems> getItemsCart(@PathVariable int id) throws ConsumerMicroserviceException {
-		CartItems citems;
+		CartItems citems=null;
 		try {
 			Cart c =cartClient.getItemsCart(id);
 			Iterator<Integer> itr = c.getItem_id().iterator();
@@ -86,6 +87,9 @@ public class ConsumerController {
 			while(itr.hasNext()) {
 				Item x =itemClient.getItemById(itr.next());
 				items.add(x);
+			}
+			if(items.size() == 0) {
+				throw new ConsumerServiceException("No items in the list");
 			}
 			citems = new CartItems(id,items,c.getTotal());
 			return new ResponseEntity<>(citems,HttpStatus.ACCEPTED);
@@ -95,13 +99,17 @@ public class ConsumerController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/addItemToCart/{id}/{c_id}")
-	public Cart addItemToCart(@PathVariable int id, @PathVariable int c_id) {
-		return cartClient.addItemToCart(id, c_id);
+	public ResponseEntity<Cart> addItemToCart(@PathVariable int id, @PathVariable int c_id) {
+		return new ResponseEntity<>(cartClient.addItemToCart(id, c_id),HttpStatus.ACCEPTED);
 	}
 
 	@PutMapping("/deleteItem/{id}/{c_id}")
-	public boolean deleteItem(@PathVariable int id, @PathVariable int c_id) {
-		return cartClient.deleteItem(id, c_id);
+	public ResponseEntity<Boolean> deleteItem(@PathVariable int id, @PathVariable int c_id) throws ConsumerMicroserviceException {
+		try {
+			return new ResponseEntity<>(cartClient.deleteItem(id, c_id),HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			throw new ConsumerMicroserviceException(e.getMessage(),e);
+		}
 	}
 
 //	@DeleteMapping("/deleteConsumer/{id}")

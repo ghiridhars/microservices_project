@@ -11,13 +11,13 @@ public interface ProducerService {
 
 	Producer getByName(String name);
 
-	List<Producer> getAllData() throws InterruptedException;
+	List<Producer> getAllData() ;
 
 	Producer addProducer(Producer p);
 
 	boolean deleteById(int id);
 
-	Producer updateProducer(Producer p, int id) throws InterruptedException;
+	Producer updateProducer(Producer p, int id);
 
 	void clear();
 

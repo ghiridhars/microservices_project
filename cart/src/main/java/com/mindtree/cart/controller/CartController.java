@@ -45,7 +45,7 @@ public class CartController {
 	@GetMapping("/getCart/{id}")
 	public ResponseEntity<Cart> getItemsBy(@PathVariable int id) throws CartMicroserviceException {
 		try {
-			return  new ResponseEntity<>(cartService.getCartData(id),HttpStatus.ACCEPTED);
+			return new ResponseEntity<>(cartService.getCartData(id),HttpStatus.ACCEPTED);
 		} catch (CartMicroserviceException e) {
 			throw new CartMicroserviceException(e.getMessage(),e);
 		}

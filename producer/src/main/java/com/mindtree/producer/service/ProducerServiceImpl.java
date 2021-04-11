@@ -16,23 +16,15 @@ public class ProducerServiceImpl implements ProducerService{
 	
 	@Autowired
 	ProducerRepo producerRepo;
-
-	@Override
-	@Cacheable(value="producers", key="#name", condition="#name!='Apple'" , unless="#result==null")
-	public Producer getByName(String name) {
-		return producerRepo.findByName(name);
-	}
 	
 	@Override
-	@Cacheable(value="producers", key="#id")
 	public Producer getById(int id) {
 		return producerRepo.findById(id).orElse(null);
 	}
 
 	@Override
 	@Cacheable(value="producers")
-	public List<Producer> getAllData() throws InterruptedException {
-		Thread.sleep(950);
+	public List<Producer> getAllData(){
 		return producerRepo.findAll();
 	}
 	
@@ -55,8 +47,7 @@ public class ProducerServiceImpl implements ProducerService{
 	}
 
 	@Override
-	@CachePut(value = "producers",key = "#id")
-	public Producer updateProducer(Producer p,int id) throws InterruptedException {
+	public Producer updateProducer(Producer p,int id){
 		Producer res =producerRepo.findById(id).orElse(null);
 		if(res!=null) {
 			res.setName(p.getName());
@@ -64,6 +55,12 @@ public class ProducerServiceImpl implements ProducerService{
 			producerRepo.save(res);
 			return res;
 		}
+		return null;
+	}
+
+	@Override
+	public Producer getByName(String name) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
