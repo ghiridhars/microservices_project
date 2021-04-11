@@ -11,6 +11,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.mindtree.cart.entity.Cart;
+import com.mindtree.cart.exception.CartMicroserviceException;
+import com.mindtree.cart.exception.CartServiceException;
 import com.mindtree.cart.model.Item;
 import com.mindtree.cart.repositorydao.CartRepo;
 
@@ -23,8 +25,12 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	@Cacheable
-	public Cart getCartData(int id) {
-		return cartRepo.findById(id).orElse(null);
+	public Cart getCartData(int id) throws CartMicroserviceException{
+		try {
+			return cartRepo.findById(id).orElseThrow(() -> new CartServiceException("Cart Not Found"));
+		} catch (CartServiceException e) {
+			throw new CartMicroserviceException(e.getMessage(),e);
+		}
 	}
 
 	@Override
@@ -61,19 +67,19 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public boolean deleteItemById(Item p, int id) {
+	public boolean deleteItemById(Item p, int id) throws CartMicroserviceException {
 		Cart c = cartRepo.findById(id).orElse(null);
 		if (c != null) {
 			List<Integer> x = new ArrayList<>();
 			float total = c.getTotal();
 			x = c.getItem_id();
 			if (x.size() == 0) {
-				return false;
+				throw new CartServiceException("Cart Not Found");
 			} else {
 				if (x.contains(p.getId())) {
 					x.remove(x.indexOf(p.getId()));
 				} else {
-					return false;
+					throw new CartServiceException("Cart Not Found");
 				}
 			}
 			c.setItem_id(x);

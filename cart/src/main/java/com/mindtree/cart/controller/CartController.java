@@ -6,6 +6,7 @@ package com.mindtree.cart.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mindtree.cart.entity.Cart;
+import com.mindtree.cart.exception.CartMicroserviceException;
 import com.mindtree.cart.feignClients.ItemClient;
 import com.mindtree.cart.model.Item;
 import com.mindtree.cart.service.CartService;
@@ -41,8 +43,12 @@ public class CartController {
 
 	//getting cartdetails of a particular customer
 	@GetMapping("/getCart/{id}")
-	public Cart getItemsBy(@PathVariable int id) {
-		return cartService.getCartData(id);
+	public ResponseEntity<Cart> getItemsBy(@PathVariable int id) throws CartMicroserviceException {
+		try {
+			return  new ResponseEntity<>(cartService.getCartData(id),HttpStatus.ACCEPTED);
+		} catch (CartMicroserviceException e) {
+			throw new CartMicroserviceException(e.getMessage(),e);
+		}
 	}
 	
 //	//automatically creating cart when consumer wants to add items
@@ -53,16 +59,20 @@ public class CartController {
 
 	//adding items one by one to the cart
 	@PutMapping("/addItemToCart/{id}/{c_id}")
-	public Cart addItem(@PathVariable int id,@PathVariable int c_id) {
+	public ResponseEntity<Cart> addItem(@PathVariable int id,@PathVariable int c_id) {
 		Item i = itemClient.getItemById(id);
-		return cartService.addItem(i,c_id);
+		return new ResponseEntity<>(cartService.addItem(i,c_id),HttpStatus.ACCEPTED);
 	}
 
 	//deleting items one by one from the cart
 	@PutMapping("/deleteItem/{id}/{c_id}")
-	public boolean deleteItem(@PathVariable int id,@PathVariable int c_id) {
+	public ResponseEntity<Boolean> deleteItem(@PathVariable int id,@PathVariable int c_id) throws CartMicroserviceException {
 		Item i = itemClient.getItemById(id);
-		return cartService.deleteItemById(i,c_id);
+		try {
+			return new ResponseEntity<>(cartService.deleteItemById(i,c_id),HttpStatus.ACCEPTED);
+		} catch (CartMicroserviceException e) {
+			throw new CartMicroserviceException(e.getMessage(),e);
+		}
 	}
 
 //	@PutMapping("/updateProducer/{id}")
@@ -79,7 +89,5 @@ public class CartController {
 //	@GetMapping("/getItems")
 //	public List<Item> getSkill() throws InterruptedException {
 //		return itemService.getAllData();
-//	}
-
-	
+//	}	
 }

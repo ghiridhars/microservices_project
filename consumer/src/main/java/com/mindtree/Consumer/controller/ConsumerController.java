@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mindtree.Consumer.entity.Consumer;
+import com.mindtree.Consumer.exception.ConsumerMicroserviceException;
 import com.mindtree.Consumer.feignClients.CartClient;
 import com.mindtree.Consumer.feignClients.ItemClient;
 import com.mindtree.Consumer.feignClients.ProducerClient;
@@ -73,22 +76,22 @@ public class ConsumerController {
 		return con;
 	}
 	
-	@PostMapping("/addCart/{c_id}")
-	public Cart addCart(@PathVariable int c_id) {
-		return cartClient.addCart(c_id);
-	}	
-
 	@GetMapping(value = "/getCart/{id}")
-	public CartItems getItemsCart(@PathVariable int id) {
-		Cart c =cartClient.getItemsCart(id);
-		Iterator<Integer> itr = c.getItem_id().iterator();
-		List<Item> items = new ArrayList<>();
-		while(itr.hasNext()) {
-			Item x =itemClient.getItemById(itr.next());
-			items.add(x);
+	public ResponseEntity<CartItems> getItemsCart(@PathVariable int id) throws ConsumerMicroserviceException {
+		CartItems citems;
+		try {
+			Cart c =cartClient.getItemsCart(id);
+			Iterator<Integer> itr = c.getItem_id().iterator();
+			List<Item> items = new ArrayList<>();
+			while(itr.hasNext()) {
+				Item x =itemClient.getItemById(itr.next());
+				items.add(x);
+			}
+			citems = new CartItems(id,items,c.getTotal());
+			return new ResponseEntity<>(citems,HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			throw new ConsumerMicroserviceException(e.getMessage(),e);
 		}
-		CartItems citems = new CartItems(id,items,c.getTotal());
-		return citems;
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/addItemToCart/{id}/{c_id}")
