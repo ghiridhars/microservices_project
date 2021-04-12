@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <!-- jQuery library -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <title>Producer Details</title>
+    <style>
+        .bg-img {
+            /* The image used */
+            background-image: url("seller.jpeg");
+            min-height: 660px;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        label {
+            font-size: x-large;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+        }
+    </style>
+    <script>$(document).ready(function () {
+            $("#btn").on("click", function () {
+                var prod_name = $('#type').val();
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8989/onlineStore/producerService/producer/getItemByBrand/' + prod_name,
+                    data: {},
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        var s = '<tr><th>ID</th><th>NAME</th><th>TYPE</th><th>PRICE</th></tr>';
+                        for (var i = 0; i < data.length; i++) {
+                            s += '<tr><td>' + data[i].id + '</td><td>' + data[i].name + '</td><td>'
+                                 + data[i].itemType + '</td><td>' + data[i].price_per_quantity + '</td></tr>';
+                        }
+
+                        
+
+                        $('#employee').html(s);
+                    },
+                    error: function (data) {
+                        $('#employee').html(data.responseText);
+                    }
+                });
+            });
+
+
+        });</script>
+</head>
+
+<body>
+    <div class="bg-img">
+        <div class="container">
+            <h1>PRODUCER DETAILS</h1>
+            <table>
+                <div class="mb-3">
+                    <tr>
+                        <label class="form-label">Enter Producer Name:</label>
+                    </tr>
+                    <tr>
+                        <input class="form-control border-end-0 border rounded-pill" type="text"
+                            placeholder="Enter the Producer name" id="type">
+                    </tr>
+                </div>
+            </table>
+            <br>
+
+
+            <button id="btn" class="btn btn-primary btn-sm">Show Details</button>
+            <br>
+            <br>
+            <table id="employee" class="table table-success table-striped">
+                <tr>
+                    <td>abc</td>
+                    <td>grocery</td>
+                    <td>100</td>
+                    <td><button onclick="location.href = 'link';" class="button1">Update</button></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <!-- jQuery library -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <title>Consumer Details</title>
+    <style>
+        .bg-img {
+            /* The image used */
+            background-image: url("cart.jpeg");
+            min-height: 660px;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+    <script>$(document).ready(function () {
+            $("#btn").on("click", function () {
+                var cart_id = $('#type').val();
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8989/onlineStore/consumerService/consumer/getCart/' + cart_id,
+                    data: {},
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        var s = '<tr><th>NAME</th><th>TYPE</th><th>PRICE</th></tr>';
+                        for (var i = 0; i < data.items.length; i++) {
+                            s += '<tr><td>' + data.items[i].name + '</td><td>' + data.items[i].itemType + '</td><td>'
+                                + data.items[i].price_per_quantity +
+                                '</td><td> <button id="delete" class="btn btn-secondary btn-sm"><a href=>DELETE</button></td></tr>';
+                        }
+                        $('#employee').html(s);
+                    },
+                    error: function (data) {
+                        $('#employee').html("No Data Found");
+                    }
+                });
+            });
+            // $("#delete").on("click", function () {
+            //     var item = $("#delete").val();
+            //     var cart_id = $('#type').val();
+            //     $.ajax({
+            //         type: 'GET',
+            //         url: 'http://localhost:8989/onlineStore/cartService/cart/deleteItem/' + cart_id+'/',
+            //         data: {},
+            //         dataType: 'json',
+            //         success: function (data) {
+            //             console.log(data);
+            //             var s = '<tr><th>Item Id</th><th>NAME</th><th>TYPE</th><th>PRICE</th></tr>';
+            //             for (var i = 0; i < data.items.length; i++) {
+            //                 s += '<tr value='+ data.items[i].id +'><td>' + data.items[i].id + '</td><td>' + data.items[i].name + '</td><td>' + data.items[i].itemType + '</td><td>' + data.items[i].price_per_quantity + '</td><td> <button id="delete" class="btn btn-secondary btn-sm">DELETE</button></td></tr>';
+            //             }
+            //             $('#employee').html(s);
+            //         },
+            //         error : function (data) {
+            //             $('#employee').html(data.responseText);
+            //         }
+            //     });
+            // });
+
+
+        });</script>
+</head>
+
+<body>
+    <div class="bg-img">
+        <div class="container">
+            <h1>CART DETAILS</h1>
+            <table id="employeesda">
+                <div class="mb-3">
+                    <tr>
+                        <label for="stateName" class="form-label">Enter cart ID:</label>
+                    </tr>
+                    <tr>
+                        <input class="form-control border-end-0 border rounded-pill" type="text"
+                            placeholder="Enter the cart ID" id="type">
+                    </tr>
+                </div>
+            </table>
+            <br>
+
+
+            <button id="btn" class="btn btn-secondary btn-sm">Show Cart</button>
+            <br>
+            <br>
+            <table id="employee" class="table table-dark">
+                <tr>
+                    <td>abc</td>
+                    <td>grocery</td>
+                    <td>100</td>
+                    <td><button onclick="location.href = 'link';" class="button1">Update</button></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</body>
+
+</html>
