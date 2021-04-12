@@ -65,6 +65,15 @@ public class ItemController {
 			throw new ItemMicroserviceException(e.getMessage(), e);
 		}
 	}
+	
+	@GetMapping("/getItemByBrand/{brand}")
+	public ResponseEntity<List<Item>> getItemsByBrand(@PathVariable String brand) throws ItemMicroserviceException {
+		try {
+			return new ResponseEntity<>(itemService.getItemByBrand(brand),HttpStatus.ACCEPTED);
+		} catch (ItemServiceException e) {
+			throw new ItemMicroserviceException(e.getMessage(), e);
+		}
+	}
 
 	@GetMapping("/getAllItems")
 	public ResponseEntity<List<Item>> getAllItems() {

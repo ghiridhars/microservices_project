@@ -27,4 +27,6 @@ public interface ItemService {
 	Item getItemByName(String name) throws ItemServiceException;
 
 	List<Item> getAllItemsById(List<Integer> ids);
+
+	List<Item> getItemByBrand(String brand)throws ItemServiceException;
 }

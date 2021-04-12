@@ -57,6 +57,15 @@ public class ProducerController {
 			throw new ProducerMicroserviceException(e.getMessage(), e);
 		}
 	}
+	
+	@GetMapping("/getItemByBrand/{brand}")
+	public ResponseEntity<List<Item>> getItemsByBrand(@PathVariable String brand) throws ProducerMicroserviceException {
+		try {
+			return new ResponseEntity<>(itemFeign.getItemsByBrand(brand),HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			throw new ProducerMicroserviceException(e.getMessage(), e);
+		}
+	}
 
 	@GetMapping("/getProducer/{id}")
 	public ResponseEntity<Producer> getProducerBy(@PathVariable int id) {

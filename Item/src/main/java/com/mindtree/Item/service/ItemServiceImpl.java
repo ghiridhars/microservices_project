@@ -84,4 +84,10 @@ public class ItemServiceImpl implements ItemService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Item> getItemByBrand(String brand) throws ItemServiceException {
+		// TODO Auto-generated method stub
+		return itemRepo.findByBrand(brand).orElseThrow(() -> new ItemServiceException("Item Not Found"));
+	}
 }

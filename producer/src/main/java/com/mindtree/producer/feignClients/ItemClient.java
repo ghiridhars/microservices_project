@@ -1,6 +1,9 @@
 package com.mindtree.producer.feignClients;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,9 @@ public interface ItemClient {
 
 	@GetMapping(value = "/getAllItems")
 	public Product getItems();
+	
+	@GetMapping("/getItemByBrand/{brand}")
+	public List<Item> getItemsByBrand(@PathVariable String brand);
 	
 	@RequestMapping(method = RequestMethod.POST,value="/addItem")
 	public Item addItem(@RequestBody Item it);
