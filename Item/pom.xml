@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mindtree</groupId>
-	<artifactId>Consumer</artifactId>
+	<artifactId>Item</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SkillsTechnologies</name>
-	<description>Skills Technologies Detail</description>
+	<name>items</name>
+	<description>Items</description>
 
 	<properties>
 		<java.version>1.8</java.version>
